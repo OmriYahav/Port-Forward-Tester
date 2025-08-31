@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Port Forwarding Tester</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="container">
+    <h1>🔗 Port Forwarding Tester</h1>
+    <p class="subtitle">Test TCP port connectivity to remote hosts</p>
+  </header>
+  <main class="container">
+    <section id="ipCard" class="card gradient">
+      <div class="row space-between center">
+        <div class="row center gap-8"><span class="emoji">🧭</span><span>Your external address:</span></div>
+        <code id="publicIp">detecting…</code>
+      </div>
+    </section>
+    <section class="card">
+      <h2>Port Connectivity Test</h2>
+      <div class="grid">
+        <label><span>Remote IP / Host</span><input id="host" placeholder="8.8.8.8 or example.com" /></label>
+        <label><span>Port Number</span><input id="port" type="number" min="1" max="65535" value="80" /></label>
+        <div class="actions"><button id="checkBtn">Check Port</button></div>
+      </div>
+    </section>
+    <section class="card">
+      <h2>Recent Tests (Last 50)</h2>
+      <p class="muted tiny">Server‑wide history with localStorage fallback</p>
+      <div id="recent" class="list"></div>
+    </section>
+  </main>
+  <footer class="container footer">Built Responsive • No frameworks</footer>
+  <script src="app.js"></script>
+</body>
+</html>
