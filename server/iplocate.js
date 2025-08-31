@@ -3,6 +3,10 @@ const https = require('https');
 module.exports = function iplocate(ip) {
   return new Promise((resolve, reject) => {
     const req = https.get(`https://iplocate.io/api/lookup/${ip}`, res => {
+      if (res.statusCode !== 200) {
+        res.resume();
+        return reject(new Error(`iplocate status ${res.statusCode}`));
+      }
       let data = '';
       res.on('data', chunk => (data += chunk));
       res.on('end', () => {
@@ -11,7 +15,7 @@ module.exports = function iplocate(ip) {
           if (json && json.error) {
             return reject(new Error(json.reason || 'iplocate error'));
           }
-
+          resolve(json);
         } catch (err) {
           reject(err);
         }
