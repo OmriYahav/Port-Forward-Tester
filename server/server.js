@@ -2,7 +2,7 @@ const express = require('express');
 const net = require('net');
 const path = require('path');
 const helmet = require('helmet');
-const iplocate = require('./iplocate');
+
 
 const app = express();
 app.use(helmet({ contentSecurityPolicy: false }));
@@ -69,7 +69,7 @@ app.get('/api/ip', (req, res) => res.json({ ok: true, ip: getClientIp(req) }));
 app.get('/api/ipinfo', async (req, res) => {
   try {
     const ip = req.query.ip || getClientIp(req);
-    const data = await iplocate(ip);
+
     res.json({ ok: true, data });
   } catch (e) {
     res.status(500).json({ ok: false, error: 'lookup_failed' });
