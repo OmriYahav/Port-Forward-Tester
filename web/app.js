@@ -53,13 +53,7 @@ async function fetchIp() {
 
 async function fetchIpInfo(ip) {
   try {
-    const res = await (await fetch(`/api/ipinfo?ip=${ip}`)).json();
-    if (!res.ok) throw new Error('lookup failed');
-    const data = res.data || {};
-    ipInfoEl.textContent = JSON.stringify(data, null, 2);
-    const { latitude, longitude } = data;
-    if (typeof latitude === 'number' && typeof longitude === 'number') {
-      ipMapEl.src = `https://staticmap.openstreetmap.de/staticmap.php?center=${latitude},${longitude}&zoom=9&size=865x512&markers=${latitude},${longitude},red`;
+
     }
   } catch {
     ipInfoEl.textContent = 'Failed to load.';
