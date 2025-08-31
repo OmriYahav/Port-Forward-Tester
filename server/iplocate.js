@@ -11,7 +11,7 @@ module.exports = function iplocate(ip) {
           if (json && json.error) {
             return reject(new Error(json.reason || 'iplocate error'));
           }
-          resolve(json);
+
         } catch (err) {
           reject(err);
         }
