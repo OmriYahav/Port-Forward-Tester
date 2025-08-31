@@ -53,10 +53,7 @@ async function fetchIp() {
 
 async function fetchIpInfo(ip) {
   try {
-    const data = await (await fetch(`https://ip-api.com/json/${ip}`)).json();
-    ipInfoEl.textContent = JSON.stringify(data, null, 2);
-    if (typeof data.lat === 'number' && typeof data.lon === 'number') {
-      ipMapEl.src = `https://staticmap.openstreetmap.de/staticmap.php?center=${data.lat},${data.lon}&zoom=9&size=865x512&markers=${data.lat},${data.lon},red`;
+
     }
   } catch {
     ipInfoEl.textContent = 'Failed to load.';
