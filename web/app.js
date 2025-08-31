@@ -53,7 +53,16 @@ async function fetchIp() {
 
 async function fetchIpInfo(ip) {
   try {
-
+    const j = await (await fetch(`/api/ipinfo?ip=${encodeURIComponent(ip)}`)).json();
+    if (j.ok) {
+      const d = j.data || {};
+      const city = d.city;
+      const region = d.region || d.region_name;
+      const country = d.country_name || d.country;
+      const parts = [city, region, country].filter(Boolean);
+      ipInfoEl.textContent = parts.join(', ') || 'No info.';
+    } else {
+      ipInfoEl.textContent = 'IP info unavailable.';
     }
   } catch {
     ipInfoEl.textContent = 'Failed to load.';

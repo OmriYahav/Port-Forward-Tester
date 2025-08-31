@@ -2,6 +2,8 @@ const express = require('express');
 const net = require('net');
 const path = require('path');
 const helmet = require('helmet');
+const ipapi = require('./ipapi');
+const iplocate = require('./iplocate');
 
 
 const app = express();
@@ -69,7 +71,16 @@ app.get('/api/ip', (req, res) => res.json({ ok: true, ip: getClientIp(req) }));
 app.get('/api/ipinfo', async (req, res) => {
   try {
     const ip = req.query.ip || getClientIp(req);
-
+    let data;
+    try {
+      data = await ipapi(ip);
+    } catch (err) {
+      try {
+        data = await iplocate(ip);
+      } catch (err2) {
+        return res.status(502).json({ ok: false, error: 'lookup_failed' });
+      }
+    }
     res.json({ ok: true, data });
   } catch (e) {
     res.status(500).json({ ok: false, error: 'lookup_failed' });
