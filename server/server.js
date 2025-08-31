@@ -2,6 +2,7 @@ const express = require('express');
 const net = require('net');
 const path = require('path');
 const helmet = require('helmet');
+const ipapi = require('./ipapi');
 
 const app = express();
 app.use(helmet({ contentSecurityPolicy: false }));
@@ -65,6 +66,15 @@ app.post('/api/check', (req, res) => {
 
 app.get('/api/recent', (req, res) => res.json({ ok: true, items: recentTests }));
 app.get('/api/ip', (req, res) => res.json({ ok: true, ip: getClientIp(req) }));
+app.get('/api/ipinfo', async (req, res) => {
+  try {
+    const ip = req.query.ip || getClientIp(req);
+    const data = await ipapi(ip);
+    res.json({ ok: true, data });
+  } catch (e) {
+    res.status(500).json({ ok: false, error: 'lookup_failed' });
+  }
+});
 
 app.use('/', express.static(path.join(__dirname, '..', 'web')));
 const PORT = process.env.PORT || 8080;

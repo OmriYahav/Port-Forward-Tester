@@ -10,4 +10,4 @@ button{background:#2563eb;border:0;color:white;padding:10px 16px;border-radius:8
 .list{display:flex;flex-direction:column;gap:10px;max-height:420px;overflow:auto}
 .item{border:1px solid #1f2937;border-radius:12px;padding:12px}.ok{background:#052a19}.err{background:#2a0c0c}
 .badge{padding:2px 6px;border-radius:999px}.open{background:#16a34a;color:white}.closed{background:#ef4444;color:white}
-.footer{text-align:center;color:#9aa4b2;font-size:12px;margin:20px 0}
+.footer{text-align:center;color:#9aa4b2;font-size:12px;margin:20px 0}pre{background:#0b1020;border:1px solid #243143;border-radius:8px;padding:12px;overflow:auto}img.map{width:100%;border-radius:8px;margin-top:12px}
