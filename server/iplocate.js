@@ -7,7 +7,11 @@ module.exports = function iplocate(ip) {
       res.on('data', chunk => (data += chunk));
       res.on('end', () => {
         try {
-          resolve(JSON.parse(data));
+          const json = JSON.parse(data);
+          if (json && json.error) {
+            return reject(new Error(json.reason || 'iplocate error'));
+          }
+          resolve(json);
         } catch (err) {
           reject(err);
         }
