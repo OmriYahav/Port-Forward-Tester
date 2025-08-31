@@ -15,7 +15,7 @@ module.exports = function ipapi(ip) {
           if (json && json.error) {
             return reject(new Error(json.reason || 'ipapi error'));
           }
-
+          resolve(json);
         } catch (err) {
           reject(err);
         }
