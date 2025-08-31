@@ -40,15 +40,23 @@ async function fetchRecent() {
 }
 
 async function fetchIp() {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 5000);
   try {
-    const j = await (await fetch('/api/ip')).json();
+    const res = await fetch('/api/ip', { signal: controller.signal });
+    const j = await res.json();
     if (j.ok) {
       publicIpEl.textContent = j.ip;
       fetchIpInfo(j.ip);
       return;
     }
-  } catch {}
-  publicIpEl.textContent = 'unknown';
+    throw new Error('IP lookup failed');
+  } catch {
+    publicIpEl.textContent = 'unknown';
+    publicIpEl.title = 'Failed to detect IP';
+  } finally {
+    clearTimeout(timer);
+  }
 }
 
 async function fetchIpInfo(ip) {
